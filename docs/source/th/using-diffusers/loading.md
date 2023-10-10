@@ -59,16 +59,16 @@ repo_id = "runwayml/stable-diffusion-v1-5"
 pipe = StableDiffusionImg2ImgPipeline.from_pretrained(repo_id)
 ```
 
-### การโหลด pipeline ที่มีอยู่ในเครื่องของเรา
+### การโหลด pipeline จากเครื่องของคุณ
 
-To load a diffusion pipeline locally, use [`git-lfs`](https://git-lfs.github.com/) to manually download the checkpoint (in this case, [`runwayml/stable-diffusion-v1-5`](https://huggingface.co/runwayml/stable-diffusion-v1-5)) to your local disk. This creates a local folder, `./stable-diffusion-v1-5`, on your disk:
+การโหลด diffusion pipeline เข้ามาในเครื่องของคุณ, ใช้ [`git-lfs`](https://git-lfs.github.com/) เพื่อดาวน์โหลด checkpoint (ในที่นี้คือ, [`runwayml/stable-diffusion-v1-5`](https://huggingface.co/runwayml/stable-diffusion-v1-5)) เพื่อดาวน์โหลดไปยังดิสก์ในเครื่องของคุณ. ซึ่งจะทำการสร้างโฟลเดอร์, `./stable-diffusion-v1-5`, บนดิสก์ของคุณ:
 
 ```bash
 git-lfs install
 git clone https://huggingface.co/runwayml/stable-diffusion-v1-5
 ```
 
-Then pass the local path to [`~DiffusionPipeline.from_pretrained`]:
+จากนั้นทำการส่ง local path ไปยัง [`~DiffusionPipeline.from_pretrained`]:
 
 ```python
 from diffusers import DiffusionPipeline
@@ -77,11 +77,11 @@ repo_id = "./stable-diffusion-v1-5"
 stable_diffusion = DiffusionPipeline.from_pretrained(repo_id, use_safetensors=True)
 ```
 
-The [`~DiffusionPipeline.from_pretrained`] method won't download any files from the Hub when it detects a local path, but this also means it won't download and cache the latest changes to a checkpoint.
+เมธอด [`~DiffusionPipeline.from_pretrained`] จะไม่ทำการดาวน์โหลดไฟล์ใดๆจาก Huggingface Hub เมื่อตรวจพบ local path แต่นี่ก็หมายความว่าจะไม่ดาวน์โหลดและแคชการเปลี่ยนแปลงล่าสุดใน checkpoint ด้วย
 
-### Swap components in a pipeline
+### การเปลี่ยนส่วนประกอบของ pipeline
 
-You can customize the default components of any pipeline with another compatible component. Customization is important because:
+คุณสามารถปรับแต่งส่วนประกอบเริ่มต้นของไปป์ไลน์ใดๆ ด้วยส่วนประกอบอื่นที่เข้ากันได้ การปรับแต่งมีความสำคัญเนื่องจาก:
 
 - Changing the scheduler is important for exploring the trade-off between generation speed and quality.
 - Different components of a model are typically trained independently and you can swap out a component with a better-performing one.
